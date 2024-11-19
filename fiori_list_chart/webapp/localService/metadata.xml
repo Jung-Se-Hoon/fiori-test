@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZC518GW0003_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Scarr" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline" sap:updatable="false"/>
+                <Property Name="Carrname" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Airline Name"/>
+                <Property Name="Currcode" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Airline Currency" sap:semantics="currency-code"/>
+                <Property Name="Url" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="URL"/>
+            </EntityType>
+            <EntityType Name="Spfli" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline" sap:updatable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Flight Number" sap:updatable="false"/>
+                <Property Name="Cityfrom" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Depart.city"/>
+                <Property Name="Airpfrom" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dep. airport"/>
+                <Property Name="Cityto" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Arrival city"/>
+                <Property Name="Airpto" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Dest. airport"/>
+                <Property Name="Deptime" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="Departure"/>
+                <Property Name="Arrtime" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="Arrival Time"/>
+                <Property Name="Distance" Type="Edm.Decimal" Precision="9" Scale="4" sap:unicode="false" sap:unit="Distid" sap:label="Distance"/>
+                <Property Name="Distid" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Distance in" sap:semantics="unit-of-measure"/>
+                <Property Name="Fltype" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Charter"/>
+            </EntityType>
+            <EntityType Name="Sflight" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                    <PropertyRef Name="Fldate"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline" sap:updatable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Flight Number" sap:updatable="false"/>
+                <Property Name="Fldate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Date" sap:updatable="false"/>
+                <Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="Airfare"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Airline Currency" sap:semantics="currency-code"/>
+                <Property Name="Planetype" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Plane Type"/>
+                <Property Name="Seatsmax" Type="Edm.Int32" sap:unicode="false" sap:label="Max. capacity econ."/>
+                <Property Name="Seatsocc" Type="Edm.Int32" sap:unicode="false" sap:label="Occupied econ."/>
+                <Property Name="Paymentsum" Type="Edm.Decimal" Precision="18" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="Total"/>
+            </EntityType>
+            <EntityType Name="Book" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                    <PropertyRef Name="Fldate"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline" sap:updatable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Connection Number" sap:updatable="false"/>
+                <Property Name="Fldate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Flight date" sap:updatable="false"/>
+                <Property Name="LuggWeight" Type="Edm.Decimal" Precision="9" Scale="4" sap:unicode="false" sap:label="Weight of Luggage"/>
+                <Property Name="ForCuram" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:label="Booking price"/>
+            </EntityType>
+            <EntityContainer Name="ZC518GW0003_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ScarrSet" EntityType="ZC518GW0003_SRV.Scarr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SpfliSet" EntityType="ZC518GW0003_SRV.Spfli" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SflightSet" EntityType="ZC518GW0003_SRV.Sflight" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BookSet" EntityType="ZC518GW0003_SRV.Book" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC518GW0003_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC518GW0003_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

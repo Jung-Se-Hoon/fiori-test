@@ -1,0 +1,183 @@
+<mvc:View controllerName="zc518.gw0001.fioricrud01.controller.MatView"
+     displayBlock="true"
+        xmlns:t="sap.ui.table"
+	    xmlns:mvc="sap.ui.core.mvc"
+    	xmlns:u="sap.ui.unified"
+    	xmlns:c="sap.ui.core"
+        xmlns:l="sap.ui.layout"
+	    xmlns:f="sap.ui.layout.form"
+    	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+
+    <t:Table
+        id="matList"
+        rows="{/MatSet}"         
+        selectionMode="Single" 
+        selectionBehavior="RowOnly"
+        visibleRowCount="7"
+        paste="onPaste"
+        ariaLabelledBy="title">
+        <t:extension>
+            <OverflowToolbar style="Clear"> 
+            <!-- Search Icon 추가 -->
+            <Button text="Search" icon="sap-icon://search" press="onSearch" />
+            <!-- 간격 두기 -->
+            <ToolbarSpacer  width="5rem"/>
+            <!-- Input 추가 -->
+            <Input id="IWerks" width="5rem"  maxLength="4"  placeholder="Plant" />
+            <Input id="IMatnr" width="20rem" maxLength="40" placeholder="Material" />
+            </OverflowToolbar>
+        </t:extension>
+        <t:columns>
+            <t:Column width="11rem">
+                <Label text="Plant" />
+                <t:template>
+                    <Text text="{Werks}" wrapping="false" />
+                </t:template>
+            </t:Column>
+        </t:columns>
+         <t:columns>
+            <t:Column width="11rem">
+                <Label text="Material" />
+                <t:template>
+                    <Text text="{Matnr}" wrapping="false" />
+                </t:template>
+            </t:Column>
+        </t:columns>
+         <t:columns>
+            <t:Column width="11rem">
+                <Label text="Mat Type" />
+                <t:template>
+                    <Text text="{Mtart}" wrapping="false" />
+                </t:template>
+            </t:Column>
+        </t:columns>
+         <t:columns>
+            <t:Column width="11rem">
+                <Label text="Mat Group" />
+                <t:template>
+                    <Text text="{Maktl}" wrapping="false" />
+                </t:template>
+            </t:Column>
+        </t:columns>
+         <t:columns>
+            <t:Column width="11rem">
+                <Label text="Quantity" />
+                <t:template>
+                <!-- 갯수 뒤에 단위 붙이기 -->
+                    <Text text="{
+                            parts:[{path:'Menge'},{path:'Meins'}],
+                            type: 'sap.ui.model.type.Unit',
+                            formatOptions: {showMeasure: true }
+                            }" wrapping="false" />
+                <!-- 여기까지 -->
+                </t:template>
+            </t:Column>
+        </t:columns>
+
+        <!-- 위에 단위 붙혀서 빼는 거임 -->
+
+            <!-- <t:columns>
+            <t:Column width="11rem">
+                <Label text="Unit" />
+                <t:template>
+                    <Text text="{Meins}" wrapping="false" />
+                </t:template>
+            </t:Column>
+        </t:columns> -->
+
+         <t:columns>
+            <t:Column width="11rem">
+                <Label text="Price" />
+                <t:template>
+                <!-- 금액 뒤에 통화키 붙이기 -->
+                    <Text text="{
+                            parts:[{path:'Dmbtr'},{path:'Waers'}],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: {showMeasure: true }
+                            }" wrapping="false" />
+                <!-- 여기까지 -->            
+                </t:template>
+            </t:Column>
+        </t:columns>
+
+        <!-- 위에 통화키 붙혀서 빼는 거임 -->
+
+         <!-- <t:columns>
+            <t:Column width="11rem">
+                <Label text="Currency" />
+                <t:template>
+                    <Text text="{Waers}" wrapping="false" />
+                </t:template>
+            </t:Column>
+        </t:columns> -->
+
+    </t:Table>
+        <!-- Icon 설정 -->
+        <OverflowToolbar style="Clear">
+            <!-- 공백 추가 -->
+            <ToolbarSpacer width="15rem" />
+                <Button text="Clear"   icon="sap-icon://eraser"     press="onClear" />
+                <Button text="Display" icon="sap-icon://display"    press="onDisplay" />
+                <Button text="Read"    icon="sap-icon://display"    press="onRead" />
+                <Button text="Create"  icon="sap-icon://create"     press="onCreate" />
+                <Button text="Update"  icon="sap-icon://edit"       press="onUpdate" />
+                <Button text="Delete"  icon="sap-icon://delete"     press="onDelete" />
+        </OverflowToolbar>
+
+
+    <!-- Form 부분 -->
+    <f:SimpleForm id="SimpleFormChange354"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="Contents"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<Label text="Plant" />
+                <Select id="Werks" items="{/PlantSet}" width="10rem" >
+					<items>
+                    <!-- DB에서 가져오기 때문에 한 줄만 필요 (하드코딩 X) -->
+						<c:Item text="{Name1}" key="{Werks}"/>
+						<!-- <c:Item text="Germany" key="Germany"/> -->
+						<!-- <c:Item text="USA" key="USA"/> -->
+					</items>
+				</Select>
+
+				<Label text="Material" />
+				<Input id="Matnr" width="11rem" maxLength="40" />
+
+                <Label text="Mat Type" />
+				<Input id="Mtart" width="5rem" maxLength="5" />
+
+                <Label text="Mat Group" />
+				<Input id="Matkl" width="6rem" maxLength="3" />
+
+                <Label text="Quantity" />
+				<Input id="Menge" width="10rem" maxLength="10" />
+
+                <Label text="Unit" />
+				<Input id="Meins" width="5rem" maxLength="3" />
+
+                <Label text="Price" />
+				<Input id="Dmbtr" width="11rem" maxLength="10" />
+                
+                <Label text="Currency" />
+				<Input id="Waers" width="3rem" maxLength="3" />
+
+			</f:content>
+		</f:SimpleForm>
+
+    </Page>
+</mvc:View>

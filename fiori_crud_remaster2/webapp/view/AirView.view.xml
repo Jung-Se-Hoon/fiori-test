@@ -1,0 +1,156 @@
+<mvc:View controllerName="zc518.gw0003.fioricrudremaster2.controller.AirView"
+    displayBlock="true"
+    xmlns:t="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <!-- rows 에 들어가는 값은  EntitySet 이름이다
+        selectionMode는 Single로하고
+        selectionBehavior는 RowOnly로 하기 -->
+        <!-- controller에서 쓰기위해 Table에 ID를 준다 -->
+        <t:Table
+            id="airList"
+            rows="{/AirlineSet}"    
+            selectionMode="Single"
+            selectionBehavior="RowOnly"
+            visibleRowCount = "5" 
+            paste="onPaste"
+            ariaLabelledBy="title">
+            <t:extension>
+                <OverflowToolbar style="Clear">
+                    <Button text="Search" icon="sap-icon://search" press="onSearch" />
+                    <ToolbarSpacer width="4rem" />
+                    <Input id="ICarrid" width="5rem" maxLength="2" placeholder="Airline" showClearIcon="true" />
+                    <Input id="IConnid" width="9rem" maxLength="4" placeholder="Connection" showClearIcon="true" />
+                </OverflowToolbar>
+            </t:extension>
+            <!-- 항공사 이름 -->
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Airline" />
+                    <t:template>
+                        <Text text="{Carrid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- 항공기 번호 -->
+            <t:columns>
+                <t:Column width="9rem">
+                    <Label text="Connection Number" />
+                    <t:template>
+                        <Text text="{Connid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- 항공 날짜 -->
+            <t:columns>
+                <t:Column width="7rem">
+                    <Label text="Flight Date" />
+                    <t:template>
+                        <Text text="{Fldate}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- 가격 -->
+            <t:columns>
+                <t:Column width="8rem">
+                    <Label text="Price" />
+                    <t:template>
+                        <!-- <Text text="{Price}" wrapping="false" /> -->
+                        <!-- 가격에 통화키를 부여하는 코드 -->
+                        <Text text="{
+                            parts:[{path:'Price'},{path:'Currency'}],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: {showMeasure: true }
+                            }" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- 수하물 무게 -->
+            <t:columns>
+                <t:Column width="8rem">
+                    <Label text="Weight" />
+                    <t:template>
+                        <!-- <Text text="{Weight}" wrapping="false" /> -->
+                        <!-- 무게에 단위를 부여하는 코드 -->
+                        <Text text="{
+                            parts:[{path:'Weight'},{path:'Unit'}],
+                            type: 'sap.ui.model.type.Unit',
+                            formatOptions: {showMeasure: true }
+                            }" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- 도착 시간 -->
+            <t:columns>
+                <t:Column width="7rem">
+                    <Label text="Flight Time" />
+                    <t:template>
+                        <Text text="{DepTime}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+
+        <!-- Icon 만들기 -->
+        <OverflowToolbar >
+            <ToolbarSpacer width="13rem" />
+            <Button text="Clear"   icon="sap-icon://eraser"  press="onClear" />
+            <Button text="Display" icon="sap-icon://display" press="onDisplay" />
+            <Button text="Read"    icon="sap-icon://display" press="onRead" />
+            <Button text="Create"  icon="sap-icon://create"  press="onCreate" />
+            <Button text="Update"  icon="sap-icon://edit"    press="onUpdate" />
+            <Button text="Delete"  icon="sap-icon://delete"  press="onDelete" />
+        </OverflowToolbar>
+
+        <!-- Form 만들기  -->
+        <f:SimpleForm
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="Address"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+            <!-- Content 생성 -->
+			<f:content>
+				<Label text="Airline" />
+				<Input id="Carrid" width="5rem" maxLength="2" />
+
+                <Label text="Connection Number" />
+				<Input id="Connid" width="5rem" maxLength="4" />
+
+                <Label text="Flight Date" />
+				<Input id="Fldate" width="7rem" maxLength="8" />
+
+                <Label text="Price" />
+				<Input id="Price" width="8rem" />
+
+                <Label text="Currency" />
+				<Input id="Currency" width="5rem" maxLength="3" />
+
+                <Label text="Weight" />
+				<Input id="Weight" width="8rem" />
+
+                <Label text="Unit" />
+				<Input id="Unit" width="5rem" maxLength="3" />
+
+                <Label text="Dep. Time" />
+				<Input id="DepTime" width="5rem" maxLength="6" />
+			</f:content>
+		</f:SimpleForm>
+    </Page>
+</mvc:View>

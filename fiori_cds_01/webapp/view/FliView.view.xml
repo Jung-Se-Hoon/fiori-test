@@ -1,0 +1,90 @@
+<mvc:View controllerName="zc518.cds0001.fioricds01.controller.FliView"
+    displayBlock="true"
+    xmlns:t="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <t:Table
+            rows="{/FlightSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title">
+            <t:extension>
+                <OverflowToolbar style="Clear">
+                    <Title id="title" text="Products"/>
+                </OverflowToolbar>
+            </t:extension>
+            <!-- Carrid -->
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Airline" />
+                    <t:template>
+                        <!-- <Text text="{Carrid}" wrapping="false" /> -->
+                        <Button text="{Carrid}" icon="sap-icon://flight" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- Carrname -->
+            <t:columns>
+                <t:Column width="11rem">
+                    <Label text="Airline Name" />
+                    <t:template>
+                        <Text text="{Carrname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- Connid -->
+            <t:columns>
+                <t:Column width="9rem">
+                    <Label text="Connection" />
+                    <t:template>
+                        <Text text="{Connid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- Fldate -->
+            <t:columns>
+                <t:Column width="7rem">
+                    <Label text="Flight Date" />
+                    <t:template>
+                        <Text text="{Fldate}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- ArrTime -->
+            <t:columns>
+                <t:Column width="7rem">
+                    <Label text="ArrTime" />
+                    <t:template>
+                        <Text text="{Arrtime}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- Price -->
+            <t:columns>
+                <t:Column width="8rem">
+                    <Label text="Price" />
+                    <t:template>
+                        <Text text="{
+                            parts:[{path:'Price'},{path:'Currcode'}],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: {showMeasure: true }
+                            }" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+            <!-- Url -->
+            <t:columns>
+                <t:Column width="11rem">
+                    <Label text="Home Page" />
+                    <t:template>
+                        <Text text="{Url}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+    </Page>
+</mvc:View>

@@ -1,0 +1,204 @@
+<mvc:View controllerName="zc518.gw0003.fiorilistchart.controller.ListView"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:t="sap.ui.table"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <SplitContainer
+		initialDetail="detail"
+		initialMaster="master">
+        <!-- Master page  -->
+        <masterPages>
+			<Page
+				id="master"
+				title="Airline"
+				backgroundDesign= "List">
+                	<List
+                        headerLevel="H2"
+                        items="{/ScarrSet}"
+                        itemPress="goSpfli" >
+                        <StandardListItem
+                            title="{Carrid}"
+                            type="Navigation"
+                            description="{Carrname}"
+                            icon="sap-icon://flight" 
+                            press="goSpfli"/>
+                    </List>
+			</Page>
+		</masterPages>
+        <!-- Detail page -->
+		<detailPages>
+			<Page
+				id="detail"
+				title="Flight Information"
+				backgroundDesign= "Solid"
+				showNavButton="true">
+                <!-- rowSelectionChange 잘 보기!! -->
+                <t:Table
+                    id="scheduleList"
+                    rows="{/SpfliSet}"
+                    selectionMode="MultiToggle"
+                    selectionBehavior="Row"
+                    visibleRowCount = "5" 
+                    rowSelectionChange="goSflight"
+                    paste="onPaste"
+                    ariaLabelledBy="title">
+                    <!-- Carrid -->
+                    <t:columns>
+                        <t:Column width="5rem">
+                            <Label text="Airline" />
+                            <t:template>
+                                <!-- <Text text="{Carrid}" wrapping="false" /> -->
+                                <Text text="{Carrid}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <!-- Connid -->
+                    <t:columns>
+                        <t:Column width="7rem">
+                            <Label text="Connection" />
+                            <t:template>
+                                <Text text="{Connid}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <!-- Airpfrom -->
+                    <t:columns>
+                        <t:Column width="6rem">
+                            <Label text="Dep.Airport" />
+                            <t:template>
+                                <Text text="{Airpfrom}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <!-- Airpto -->
+                    <t:columns>
+                        <t:Column width="6rem">
+                            <Label text="Arr.Airport" />
+                            <t:template>
+                                <Text text="{Airpto}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <!-- DepTime -->
+                    <t:columns>
+                        <t:Column width="7rem">
+                            <Label text="Dep.Time" />
+                            <t:template>
+                                <Text text="{Deptime}" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <!-- ArrTime -->
+                    <t:columns>
+                        <t:Column width="7rem">
+                            <Label text="Arr.Time" />
+                            <t:template>
+                                <Text text="{ArrTime}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                </t:Table>
+
+                <t:Table
+                    id="flightList"
+                    rows="{/SflightSet}"
+                    selectionMode="Single"
+                    selectionBehavior="Row"
+                    paste="onPaste"
+                    ariaLabelledBy="title"
+                    visibleRowCount="5"
+                    rowSelectionChange="goSbook">
+                    <t:columns>
+                        <t:Column width="5rem">
+                            <Label text="Airline" />
+                            <t:template>
+                                <Text text="{Carrid}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="8rem">
+                            <Label text="Flihgt Number" />
+                            <t:template>
+                                <Text text="{Connid}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="6rem">
+                            <Label text="Date" />
+                            <t:template>
+                                <Text text="{Fldate}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="8rem">
+                            <Label text="Price" />
+                            <t:template>
+                                <Text text="{
+                                    parts:[{path:'Price'},{path:'Currency'}],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {showMeasure: true }
+                                    }" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="6rem">
+                            <Label text="Plane Type" />
+                            <t:template>
+                                <Text text="{Planetype}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="8rem">
+                            <Label text="Total" />
+                            <t:template>
+                                <Text text="{
+                                    parts:[{path:'Paymentsum'},{path:'Currency'}],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {showMeasure: true }
+                                    }" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                </t:Table>
+                <viz:VizFrame id="bookChart" uiConfig="{applicationSet:'fiori'}" height='400px' width="100%" vizType='pie'
+                 vizProperties="{ plotArea: { drawingEffect: 'glossy'}, title:{text:'Booking Aggregation'} }">
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{/BookSet}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition name="Airline"
+                                        value="{Carrid}" />
+                                    <viz.data:DimensionDefinition name="Flight Number"
+                                        value="{Connid}" />
+                                    <viz.data:DimensionDefinition name="Date"
+                                        value="{Fldate}" />
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Weight"
+                                        value="{LuggWeight}" />
+                                    <viz.data:MeasureDefinition name="Price"
+                                        value="{ForCuram}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+
+                        <viz:feeds>
+                            <viz.feeds:FeedItem uid="size" type="Measure"
+                                values="Weight" />
+                            <viz.feeds:FeedItem uid="size" type="Measure"
+                                values="Price" />
+                            <viz.feeds:FeedItem uid="color" type="Dimension"
+                                values="Airline" />
+                            <viz.feeds:FeedItem uid="color" type="Dimension"
+                                values="Flight Number" />
+                            <viz.feeds:FeedItem uid="color" type="Dimension"
+                                values="Date" />
+                        </viz:feeds>
+                        <viz:dependents>
+                            <viz:Popover id="idPopOver"></viz:Popover>
+                        </viz:dependents>
+                    </viz:VizFrame>
+			</Page>
+		</detailPages>
+		
+	</SplitContainer>
+    </Page>
+</mvc:View>

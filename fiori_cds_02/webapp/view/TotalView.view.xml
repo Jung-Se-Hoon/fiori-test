@@ -1,0 +1,112 @@
+<mvc:View controllerName="zc518.cds0002.fioricds02.controller.TotalView"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+
+    <!-- Chart를 바꿀 때는 Char Type과 Feed쪽 ui를 보고 수정하면 된다! -->
+    <HBox>
+        <VBox width="50%" height="50%" >
+            <!-- vizProperties로 Title, PlotArea, legend등의 효과를 줌 (사이트 잘 참고해보기) -->
+            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+                height='500px' width="800px" vizType='line'
+                vizProperties="{
+                title    : {text: 'Airline Total Summary'},
+                plotArea : {drawingEffect: 'glossy'},
+                legend   : {drawingEffect: 'glossy'}
+                }">
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{/TotalSet}">
+                        <!-- dimensions은 어떤 기준으로 할건데? (여기선 Carrid, Connid)-->
+                        <viz.data:dimensions>                           
+                            <viz.data:DimensionDefinition name="Airline"
+                                value="{Carrid}" />
+                            <viz.data:DimensionDefinition name="Connection"
+                                value="{Connid}" />
+                        </viz.data:dimensions>
+                        <!-- 나머지 값들? -->
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Price"
+                                value="{Price}" />
+                            <viz.data:MeasureDefinition name="Seat Max"
+                                value="{Seatsmax}" />
+                            <viz.data:MeasureDefinition name="Seat Occ"
+                                value="{Seatsocc}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <!-- Dimensions와 Measure를 설정하는 Feed -->
+                <viz:feeds>
+                    <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure"
+                        values="Price" />
+                    <viz.feeds:FeedItem id='valueAxisFeed2' uid="valueAxis" type="Measure"
+                        values="Seat Max" />
+                    <viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure"
+                        values="Seat Occ" />
+
+                    <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension"
+                        values="Airline" />
+                    <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension"
+                        values="Connection" />
+                </viz:feeds>
+
+                <viz:dependents>
+                    <viz:Popover id="idPopOver"></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+        </VBox>
+
+        <VBox width="50%" height="50%" >
+            <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
+                height='500px' width="800px" vizType='radar'
+                vizProperties="{
+                title    : {text: 'Airline Total Summary'},
+                plotArea : {drawingEffect: 'glossy'},
+                legend   : {drawingEffect: 'glossy'}
+                }">
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{/TotalSet}">
+                        <!-- dimensions은 어떤 기준으로 할건데? (여기선 Carrid, Connid)-->
+                        <viz.data:dimensions>                           
+                            <viz.data:DimensionDefinition name="Airline"
+                                value="{Carrid}" />
+                            <viz.data:DimensionDefinition name="Connection"
+                                value="{Connid}" />
+                        </viz.data:dimensions>
+                        <!-- 나머지 값들? -->
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Price"
+                                value="{Price}" />
+                            <viz.data:MeasureDefinition name="Seat Max"
+                                value="{Seatsmax}" />
+                            <viz.data:MeasureDefinition name="Seat Occ"
+                                value="{Seatsocc}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <!-- Dimensions와 Measure를 설정하는 Feed -->
+                <viz:feeds>
+                    <viz.feeds:FeedItem id='valueAxisFeed4' uid="valueAxis" type="Measure"
+                        values="Price" />
+                    <viz.feeds:FeedItem id='valueAxisFeed5' uid="valueAxis" type="Measure"
+                        values="Seat Max" />
+                    <viz.feeds:FeedItem id='valueAxisFeed6' uid="valueAxis" type="Measure"
+                        values="Seat Occ" />
+
+                    <viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension"
+                        values="Airline" />
+                    <viz.feeds:FeedItem id='categoryAxisFeed4' uid="categoryAxis" type="Dimension"
+                        values="Connection" />
+                </viz:feeds>
+
+                <viz:dependents>
+                    <viz:Popover id="idPopOver2"></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+        </VBox>
+        </HBox>
+    </Page>
+</mvc:View>
